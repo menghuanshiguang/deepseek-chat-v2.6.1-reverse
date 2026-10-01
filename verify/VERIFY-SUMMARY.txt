@@ -1,3 +1,3 @@
-rebuild md5    : fc4580c6d61c471f8242a9195b457e23
-rebuild sha256 : fa26287ef637c6be35b80197462754cd1183544f027de60bd3cccf5218d056f2
+rebuild md5    : 4238269993e0d8bee884b5975f0479e3
+rebuild sha256 : edec97680c8c20ad87ea1555c6f6284540a176b3cd22c5a4d443f8875ff3e729
 verdict        : PASS —— 重建产物与原始 APK 语义等价
