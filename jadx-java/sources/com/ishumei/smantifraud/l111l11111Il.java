@@ -1,0 +1,105 @@
+package com.ishumei.smantifraud;
+
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
+import android.os.Parcel;
+import cn.fly.verify.BuildConfig;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
+
+/* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+/* loaded from: classes.dex */
+public class l111l11111Il extends l1l11lI11l {
+    public final LinkedBlockingQueue<IBinder> l111l11111I1l = new LinkedBlockingQueue<>(1);
+    public final ServiceConnection l111l11111Il = new l111l11111lIl();
+    public final Context l111l11111lIl;
+
+    public l111l11111Il(Context context) {
+        this.l111l11111lIl = context;
+    }
+
+    @Override // com.ishumei.smantifraud.l1l11lI11l
+    public String l1111l111111Il() {
+        Intent intent = new Intent();
+        intent.setAction("com.asus.msa.action.ACCESS_DID");
+        intent.setComponent(new ComponentName("com.asus.msa.SupplementaryDID", "com.asus.msa.SupplementaryDID.SupplementaryDIDService"));
+        boolean bindService = this.l111l11111lIl.bindService(intent, this.l111l11111Il, 1);
+        String str = BuildConfig.FLAVOR;
+        if (bindService) {
+            try {
+                IBinder poll = this.l111l11111I1l.poll(3000L, TimeUnit.MILLISECONDS);
+                if (poll != null) {
+                    Parcel obtain = Parcel.obtain();
+                    Parcel obtain2 = Parcel.obtain();
+                    try {
+                        obtain.writeInterfaceToken("com.asus.msa.SupplementaryDID.IDidAidlInterface");
+                        poll.transact(3, obtain, obtain2, 0);
+                        obtain2.readException();
+                        str = obtain2.readString();
+                        this.l111l11111lIl.unbindService(this.l111l11111Il);
+                    } catch (Throwable unused) {
+                    }
+                    obtain.recycle();
+                    obtain2.recycle();
+                }
+            } catch (Exception unused2) {
+            }
+        }
+        return str;
+    }
+
+    /* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+    /* loaded from: classes.dex */
+    public class l1111l111111Il implements ServiceConnection {
+        public final /* synthetic */ Context l1111l111111Il;
+
+        public l1111l111111Il(Context context) {
+            this.l1111l111111Il = context;
+        }
+
+        @Override // android.content.ServiceConnection
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            try {
+                this.l1111l111111Il.unbindService(this);
+            } catch (Throwable unused) {
+            }
+        }
+
+        @Override // android.content.ServiceConnection
+        public void onServiceDisconnected(ComponentName componentName) {
+        }
+    }
+
+    /* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+    /* loaded from: classes.dex */
+    public class l111l11111lIl implements ServiceConnection {
+        public l111l11111lIl() {
+        }
+
+        @Override // android.content.ServiceConnection
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            try {
+                l111l11111Il.this.l111l11111I1l.offer(iBinder, 3000L, TimeUnit.MILLISECONDS);
+            } catch (Exception unused) {
+            }
+        }
+
+        @Override // android.content.ServiceConnection
+        public void onServiceDisconnected(ComponentName componentName) {
+        }
+    }
+
+    public static boolean l1111l111111Il(Context context) {
+        try {
+            Intent intent = new Intent();
+            intent.setAction("com.asus.msa.action.ACCESS_DID");
+            intent.setComponent(new ComponentName("com.asus.msa.SupplementaryDID", "com.asus.msa.SupplementaryDID.SupplementaryDIDService"));
+            return context.bindService(intent, new l1111l111111Il(context), 1);
+        } catch (Throwable unused) {
+            return false;
+        }
+    }
+}

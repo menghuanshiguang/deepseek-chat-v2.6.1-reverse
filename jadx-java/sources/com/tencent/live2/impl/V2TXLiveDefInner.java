@@ -1,0 +1,50 @@
+package com.tencent.live2.impl;
+
+import defpackage.wa1;
+
+/* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+/* loaded from: classes.dex */
+public class V2TXLiveDefInner {
+
+    /* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+    /* loaded from: classes.dex */
+    public static class SurfaceSize {
+        public int height;
+        public int width;
+
+        public SurfaceSize(int i, int i2) {
+            this.width = i;
+            this.height = i2;
+        }
+
+        public String toString() {
+            StringBuilder sb = new StringBuilder("[width:");
+            sb.append(this.width);
+            sb.append("][height:");
+            return wa1.w(sb, this.height, "]");
+        }
+    }
+
+    /* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+    /* loaded from: classes.dex */
+    public static class TXLivePropertyKey {
+        public static final String kEnableAdjustEncoderDirectionToUIOrientation = "enableAdjustEncoderDirectionToUIOrientation";
+        public static final String kV2EnableAGC = "enableAGC";
+        public static final String kV2EnableANS = "enableANS";
+        public static final String kV2EnableCameraZoom = "enableCameraZoom";
+        public static final String kV2EnableRTMPAcc = "enableRTMPAcc";
+        public static final String kV2EnableRealtimeMode = "enableRealtimeMode";
+        public static final String kV2EnableSEITimestampMessage = "enableSEITimestampMessage";
+        public static final String kV2SetAudioCodecType = "setAudioCodecType";
+        public static final String kV2SetAudioEncodeFormat = "setAudioEncodeFormat";
+        public static final String kV2SetAudioRoute = "setAudioRoute";
+        public static final String kV2SetDisplayRotationObtainMethod = "setDisplayRotationObtainMethod";
+        public static final String kV2SetFramework = "setFramework";
+        public static final String kV2SetLEBEnvironment = "setLEBEnvironment";
+        public static final String kV2SetLebCacheParams = "setLebCacheParams";
+        public static final String kV2SetOpenGLContext = "setOpenGLContext";
+        public static final String kV2SetPreferLocalIPStack = "setPreferLocalIPStack";
+        public static final String kV2SetSurface = "setSurface";
+        public static final String kV2SetSurfaceSize = "setSurfaceSize";
+    }
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <cache-path name="tmp_images" path="images/" />
+    <cache-path name="tmp_captured_images" path="captured/" />
+    <cache-path name="ktorx_logs" path="ktorx_logs/" />
+    <cache-path name="tmp_csv" path="csv/" />
+</paths>

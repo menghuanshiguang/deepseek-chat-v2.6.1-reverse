@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="48.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginEnd="16.0dip">
+        <TextView android:textSize="18.0sp" android:textColor="@color/call_notification_label_primary" android:ellipsize="end" android:id="@id/call_notification_status" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/call_listening_hint" android:maxLines="1" android:includeFontPadding="false" android:textFontWeight="500" style="@style/TextAppearance.Compat.Notification.Title" />
+        <TextView android:textSize="14.0sp" android:textColor="@color/call_notification_label_primary" android:ellipsize="end" android:id="@id/call_notification_subtitle" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dip" android:text="@string/in_call" android:maxLines="1" android:includeFontPadding="false" android:alpha="0.6" style="@style/TextAppearance.Compat.Notification.Line2" />
+    </LinearLayout>
+    <FrameLayout android:id="@id/call_notification_microphone" android:focusable="true" android:clickable="true" android:layout_width="48.0dip" android:layout_height="48.0dip" android:contentDescription="@string/turn_off_microphone">
+        <ImageView android:layout_gravity="center" android:id="@id/call_notification_microphone_icon" android:background="@drawable/bg_call_notification_button" android:padding="7.0dip" android:layout_width="42.0dip" android:layout_height="42.0dip" android:src="@drawable/ic_mic_filled_20" android:tint="@color/call_notification_control_foreground" android:importantForAccessibility="no" />
+    </FrameLayout>
+    <FrameLayout android:id="@id/call_notification_hangup" android:focusable="true" android:clickable="true" android:layout_width="48.0dip" android:layout_height="48.0dip" android:contentDescription="@string/hang_up_call" android:layout_marginStart="12.0dip">
+        <ImageView android:layout_gravity="center" android:background="@drawable/bg_call_notification_button" android:padding="7.0dip" android:layout_width="42.0dip" android:layout_height="42.0dip" android:src="@drawable/ic_call_hang_up" android:tint="@color/call_notification_hangup_foreground" android:importantForAccessibility="no" />
+    </FrameLayout>
+</LinearLayout>

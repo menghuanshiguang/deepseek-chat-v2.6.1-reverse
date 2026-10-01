@@ -1,0 +1,30 @@
+{
+  "applicationId": "com.deepseek.chat",
+  "versionName": "2.6.1",
+  "versionCode": 279,
+  "minSdkVersion": 23,
+  "targetSdkVersion": 36,
+  "compileSdkVersion": 36,
+  "primaryCpuAbi": "arm64-v8a",
+  "file": "deepseek-chat-v2.6.1-base.apk",
+  "size": 22201328,
+  "md5": "0c7efce025b1400c27a8c28dae17ff44",
+  "sha256": "7440d8421bf15cfde941734ee6171d430685362b294715e14985fb45f36d76f1",
+  "resFiles": 851,
+  "assetFiles": 98,
+  "locales": 96,
+  "zipEntries": 1023,
+  "dex": [
+    { "name": "classes.dex", "size": 12282392 },
+    { "name": "classes2.dex", "size": 551656 },
+    { "name": "classes3.dex", "size": 2951028 }
+  ],
+  "signature": "v1 + v2 (official DeepSeek certificate)",
+  "installPath": "/data/app/~~y2PYZqCnmz0YNp0zmSTklw==/com.deepseek.chat-PMFKQUr0u8RGNF9V7vKGWA==/base.apk",
+  "acquired": {
+    "method": "devctl (adb-free LAN agent) — split into 1 MiB chunks + base64 pull, reassembled & md5-verified",
+    "device": "192.168.2.5",
+    "date": "2026-10-01",
+    "lastUpdateTime": "2026-10-01 14:54:09"
+  }
+}

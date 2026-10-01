@@ -1,0 +1,22 @@
+package defpackage;
+
+import com.ishumei.sdk.captcha.SmCaptchaWebView;
+import com.ishumei.smantifraud.l11l11I1111l;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Map;
+
+/* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+/* loaded from: classes.dex */
+public abstract class ifb {
+    public static final z86 a;
+
+    static {
+        Map I0 = os6.I0(new pz7("keyword", Arrays.asList("abs", "access", "after", "alias", "all", "and", "architecture", "array", "assert", "assume", "assume_guarantee", "attribute", "begin", "block", "body", "buffer", "bus", "case", "component", "configuration", "constant", "context", "cover", "disconnect", "downto", "default", "else", "elsif", "end", "entity", "exit", "fairness", "file", "for", "force", "function", "generate", "generic", "group", "guarded", "if", "impure", "in", "inertial", "inout", "is", "label", "library", "linkage", "literal", "loop", "map", "mod", "nand", "new", "next", "nor", "not", "null", "of", "on", "open", "or", "others", "out", "package", "parameter", "port", "postponed", "procedure", "process", "property", "protected", "pure", "range", "record", "register", "reject", "release", "rem", "report", "restrict", "restrict_guarantee", "return", "rol", "ror", SmCaptchaWebView.MODE_SELECT, "sequence", "severity", "shared", "signal", "sla", "sll", "sra", "srl", "strong", "subtype", "then", "to", "transport", l11l11I1111l.l111l1111l1Il, "unaffected", "units", "until", "use", "variable", "view", "vmode", "vprop", "vunit", "wait", "when", "while", "with", "xnor", "xor")), new pz7("built_in", Arrays.asList("boolean", "bit", "character", "integer", "time", "delay_length", "natural", "positive", "string", "bit_vector", "file_open_kind", "file_open_status", "std_logic", "std_logic_vector", "unsigned", "signed", "boolean_vector", "integer_vector", "std_ulogic", "std_ulogic_vector", "unresolved_unsigned", "u_unsigned", "unresolved_signed", "u_signed", "real_vector", "time_vector")), new pz7("literal", Arrays.asList("false", "true", "note", "warning", "error", "failure", "line", "text", "side", "width")));
+        Double valueOf = Double.valueOf(0.0d);
+        i77 i77Var = new i77(null, null, Arrays.asList(new i77(null, null, null, null, null, "[ ]*(?=(TODO|FIXME|NOTE|BUG|OPTIMIZE|HACK|XXX):)", null, "(TODO|FIXME|NOTE|BUG|OPTIMIZE|HACK|XXX):", null, null, null, null, valueOf, null, null, Boolean.TRUE, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "doctag", -69793, 255), new i77(null, null, null, null, null, "[ ]+((?:I|a|is|so|us|to|at|if|in|it|on|[A-Za-z]+['](d|ve|re|ll|t|s|n)|[A-Za-z]+[-][a-z]+|[A-Za-z][a-z]{2,})[.]?[:]?([.][ ]|[ ])){3}", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -33, 511)), null, null, "--", null, "$", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "comment", -165, 255);
+        i77 i77Var2 = new i77(null, null, null, null, null, "\\b(\\d(_|\\d)*#\\w+(\\.\\w+)?#([eE][-+]?\\d(_|\\d)*)?|\\d(_|\\d)*(\\.\\d(_|\\d)*)?([eE][-+]?\\d(_|\\d)*)?)", null, null, null, null, null, null, valueOf, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "number", null, -4129, 383);
+        i77 i77Var3 = vy2.a;
+        a = new z86("vhdl", a64.a, null, true, null, false, null, Arrays.asList(vy2.f, i77Var, vy2.c, i77Var2, new i77(null, null, Collections.singletonList(i77Var3), null, null, "'(U|X|0|1|Z|W|L|H|-)'", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "string", null, -37, 383), new i77(null, null, Collections.singletonList(i77Var3), null, null, "'[A-Za-z](_?[A-Za-z0-9])*", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "symbol", null, -37, 383)), "\\{", I0, null, 25460);
+    }
+}

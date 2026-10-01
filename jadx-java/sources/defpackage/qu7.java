@@ -1,0 +1,103 @@
+package defpackage;
+
+import java.util.Collections;
+import java.util.Set;
+
+/* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+/* loaded from: classes3.dex */
+public abstract class qu7 {
+    public static final te7 a;
+    public static final te7 b;
+    public static final te7 c;
+    public static final te7 d;
+    public static final te7 e;
+    public static final te7 f;
+    public static final te7 g;
+    public static final te7 h;
+    public static final te7 i;
+    public static final te7 j;
+    public static final te7 k;
+    public static final te7 l;
+    public static final qu8 m;
+    public static final te7 n;
+    public static final te7 o;
+    public static final te7 p;
+    public static final te7 q;
+    public static final Set r;
+    public static final Set s;
+    public static final Set t;
+
+    static {
+        te7 i2 = te7.i("getValue");
+        a = i2;
+        te7 i3 = te7.i("setValue");
+        b = i3;
+        te7 i4 = te7.i("provideDelegate");
+        c = i4;
+        te7 i5 = te7.i("equals");
+        d = i5;
+        te7.i("hashCode");
+        te7 i6 = te7.i("compareTo");
+        e = i6;
+        te7 i7 = te7.i("contains");
+        f = i7;
+        g = te7.i("invoke");
+        h = te7.i("iterator");
+        i = te7.i("get");
+        te7 i8 = te7.i("set");
+        j = i8;
+        k = te7.i("next");
+        l = te7.i("hasNext");
+        te7.i("toString");
+        m = new qu8("component\\d+");
+        te7 i9 = te7.i("and");
+        te7 i10 = te7.i("or");
+        te7 i11 = te7.i("xor");
+        te7 i12 = te7.i("inv");
+        te7 i13 = te7.i("shl");
+        te7 i14 = te7.i("shr");
+        te7 i15 = te7.i("ushr");
+        te7 i16 = te7.i("inc");
+        n = i16;
+        te7 i17 = te7.i("dec");
+        o = i17;
+        te7 i18 = te7.i("plus");
+        te7 i19 = te7.i("minus");
+        te7 i20 = te7.i("not");
+        te7 i21 = te7.i("unaryMinus");
+        te7 i22 = te7.i("unaryPlus");
+        te7 i23 = te7.i("times");
+        te7 i24 = te7.i("div");
+        te7 i25 = te7.i("rem");
+        te7 i26 = te7.i("rangeTo");
+        p = i26;
+        te7 i27 = te7.i("rangeUntil");
+        q = i27;
+        te7 i28 = te7.i("timesAssign");
+        te7 i29 = te7.i("divAssign");
+        te7 i30 = te7.i("remAssign");
+        te7 i31 = te7.i("plusAssign");
+        te7 i32 = te7.i("minusAssign");
+        te7 i33 = te7.i("toDouble");
+        te7 i34 = te7.i("toFloat");
+        te7 i35 = te7.i("toLong");
+        te7 i36 = te7.i("toInt");
+        te7 i37 = te7.i("toChar");
+        te7 i38 = te7.i("toShort");
+        te7 i39 = te7.i("toByte");
+        x00.x0(new te7[]{i16, i17, i22, i21, i20, i12});
+        r = x00.x0(new te7[]{i22, i21, i20, i12});
+        Set x0 = x00.x0(new te7[]{i23, i18, i19, i24, i25, i26, i27});
+        s = x0;
+        x00.x0(new te7[]{i23, i18, i19, i24, i25});
+        Set x02 = x00.x0(new te7[]{i9, i10, i11, i12, i13, i14, i15});
+        x00.x0(new te7[]{i9, i10, i11, i13, i14, i15});
+        lk9.S0(lk9.S0(x0, x02), x00.x0(new te7[]{i5, i7, i6}));
+        Set x03 = x00.x0(new te7[]{i28, i29, i30, i31, i32});
+        t = x03;
+        x00.x0(new te7[]{i2, i3, i4});
+        lk9.S0(Collections.singleton(i8), x03);
+        x00.x0(new te7[]{i33, i34, i35, i36, i38, i39, i37});
+        os6.I0(new pz7(i16, "++"), new pz7(i17, "--"), new pz7(i22, "+"), new pz7(i21, "-"), new pz7(i20, "!"), new pz7(i23, "*"), new pz7(i18, "+"), new pz7(i19, "-"), new pz7(i24, "/"), new pz7(i25, "%"), new pz7(i26, ".."), new pz7(i27, "..<"));
+    }
+}

@@ -1,0 +1,11 @@
+package defpackage;
+
+import com.ishumei.smantifraud.l11l11I1111l;
+import java.util.Arrays;
+import java.util.Collections;
+
+/* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+/* loaded from: classes.dex */
+public abstract class kg4 {
+    public static final z86 a = new z86("flix", a64.a, null, false, null, false, null, Arrays.asList(vy2.e, vy2.f, new i77(null, null, null, null, null, "'(.|\\\\[xXuU][a-zA-Z0-9]+)'", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "string", null, -33, 383), new i77(null, null, null, Collections.singletonList(new i77(null, null, null, null, null, "\"", null, "\"", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, -161, 511)), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "string", null, -9, 383), new i77(null, null, Collections.singletonList(new i77(null, null, null, null, null, "[^0-9\\n\\t \"'(),.`{}\\[\\]:;][^\\n\\t \"'(),.`{}\\[\\]:;]+|[^0-9\\n\\t \"'(),.`{}\\[\\]:;=]", null, null, null, null, null, null, Double.valueOf(0.0d), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "title", null, -4129, 383)), null, null, null, "def", "[:={\\[(\\n;]", null, null, null, null, null, null, null, null, Boolean.TRUE, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "function", null, -131269, 383), vy2.i), null, os6.I0(new pz7("keyword", Arrays.asList("case", "class", "def", "else", "enum", "if", "impl", "import", "in", "lat", "rel", "index", "let", "match", "namespace", "switch", l11l11I1111l.l111l1111l1Il, "yield", "with")), new pz7("literal", Arrays.asList("true", "false"))), null, 27516);
+}

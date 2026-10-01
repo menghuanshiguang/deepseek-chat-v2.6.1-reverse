@@ -1,0 +1,11 @@
+package defpackage;
+
+/* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+/* loaded from: classes.dex */
+public abstract class c02 {
+    public static final a5a a = new hk8(new vf0(27));
+
+    public static final a5a a() {
+        return a;
+    }
+}

@@ -1,0 +1,26 @@
+version: 2.11.1
+apkFileName: deepseek-2.6.1.apk
+isFrameworkApk: false
+usesFramework:
+  ids:
+  - 1
+  tag: null
+sdkInfo:
+  minSdkVersion: 23
+  targetSdkVersion: 36
+packageInfo:
+  forcedPackageId: 127
+  renameManifestPackage: null
+versionInfo:
+  versionCode: 279
+  versionName: 2.6.1
+sharedLibrary: false
+sparseResources: false
+compactEntries: false
+doNotCompress:
+- arsc
+- m4a
+- png
+- webp
+- assets/dexopt/baseline.prof
+- assets/dexopt/baseline.profm

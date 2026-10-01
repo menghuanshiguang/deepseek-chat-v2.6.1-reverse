@@ -1,0 +1,9 @@
+build/
+.verify/
+*.apk.tmp
+apktool.jar
+apktool/build/
+apktool/dist/
+*.log
+!verify/*.txt
+!verify/*.md

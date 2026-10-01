@@ -1,0 +1,151 @@
+// Ported from iOS MR 613, commit 244b107. AGSL returns premultiplied color.
+layout(color) uniform float4 focusColor;
+layout(color) uniform float4 cancelColor;
+uniform float2 resolution;
+uniform float2 touch;
+uniform float time;
+uniform float glow;
+uniform float cancelMix;
+uniform float intensity;
+uniform float spacingPx;
+uniform float pixelScale;
+uniform float audioLevel;
+uniform float breathLevel;
+uniform float cancelAlphaScale;
+uniform float baselineOffset;
+uniform float entranceScale;
+uniform float arcRadius;
+uniform float flowOffsetPx;
+uniform float darkAppearance;
+
+// Shared with CPU clipping via VoiceMaskAudioLift.
+uniform float vmAudioLift;
+
+float vmArcHeight(float2 px) {
+    float halfWidth = resolution.x * 0.5;
+    float x = clamp(px.x - halfWidth, -halfWidth, halfWidth);
+    float root = sqrt(max(arcRadius * arcRadius - x * x, 0.0));
+    // 等价于 R - sqrt(R² - x²)，避免弧顶两个相近数相减损失精度。
+    float arcDrop = x * x / (arcRadius + root);
+    float audioLift = vmAudioLift * breathLevel * mix(1.0, 0.25, cancelMix);
+    float height = (px.y - arcDrop - 4.0 * pixelScale + baselineOffset)
+        / max(resolution.y, 1.0);
+    // 呼吸先平移整个圆弧，再做入场映射，实际抬升幅度不受入场比例影响。
+    return mix(1.0, height + audioLift, entranceScale);
+}
+
+// 圆柱绕流的保角映射坐标：返回 (φ, ψ)。
+float2 vmFlowCoords(float2 px, float2 touch, float2 flowDir, float R, float strength) {
+    float2 nrm = float2(-flowDir.y, flowDir.x);
+    float2 base = float2(dot(px, flowDir), dot(px, nrm));
+    float2 rel = px - touch;
+    float zr = dot(rel, flowDir);
+    float zi = dot(rel, nrm);
+    float r2 = max(zr * zr + zi * zi, max(R * R, 1.0));
+    float k = R * R / r2 * strength;
+    return base + float2(zr * k, -zi * k);
+}
+
+float vmCaustic(float2 fp, float cellPx, float t) {
+    float2 p = fp / cellPx;
+    float2 ip = p;
+    float c = 1.0;
+    for (int n = 0; n < 3; n++) {
+        float tt = t * 0.55 * (1.0 - 3.5 / float(n + 1));
+        ip = p + float2(
+            cos(tt - ip.x) + sin(tt + ip.y),
+            sin(tt - ip.y) + cos(tt + ip.x)
+        );
+        c += 1.0 / max(length(float2(
+            p.x / max(abs(sin(ip.x + tt)), 1e-4),
+            p.y / max(abs(cos(ip.y + tt)), 1e-4)
+        )), 1e-4);
+    }
+    c /= 3.0;
+    c = 1.17 - pow(c, 1.4);
+    return min(pow(abs(c), 8.0) * 1.5, 1.2);
+}
+
+half4 main(float2 px) {
+    if (intensity <= 0.0) return float4(0.0);
+    float2 res = max(resolution, float2(1.0));
+    float minDim = min(res.x, res.y);
+    float t = time;
+
+    float3 focusRGB = mix(focusColor.rgb, cancelColor.rgb, cancelMix);
+
+    float arcY = vmArcHeight(px);
+    if (arcY <= 0.605) return float4(0.0);
+
+    float wash = smoothstep(0.605, 0.97, arcY);
+
+    float envelope = smoothstep(0.64, 0.85, arcY);
+
+    float2 rel = px - touch;
+    float dist = length(rel);
+    float halo = exp(-dist * dist / (2.0 * pow(minDim * 0.32, 2.0))) * glow;
+    halo *= 1.0 + 0.05 * sin(t * 2.1);
+    float touchArcY = vmArcHeight(touch);
+    float touchIn = smoothstep(0.59, 0.80, touchArcY);
+    float touchDepth = smoothstep(0.75, 1.0, touchArcY);
+    halo *= envelope * touchIn * mix(0.80, 1.0, touchDepth);
+    halo *= mix(1.0, 0.2, cancelMix);
+
+    float presence = clamp(wash * 0.85 + halo * 1.15, 0.0, 1.0) * envelope;
+
+    float cellSpacing = max(spacingPx, 6.0);
+    float detail = 0.0;
+
+    float2 flowDir = normalize(float2(0.72, -0.70));
+    float maxRockR = minDim * 0.22;
+    float rockR = maxRockR * glow;
+    // 绕流范围固定，只衰减扭曲强度，避免缩小范围把波纹挤成中心折点。
+    float warpStrength = glow * glow * glow;
+    float2 fp = vmFlowCoords(px, touch, flowDir, maxRockR, warpStrength);
+    // 将屏幕向下的采样偏移投影到原坐标系，使波纹整体向上平移。
+    fp += float2(flowDir.y, flowDir.x) * flowOffsetPx;
+    float rockFeather = maxRockR * mix(0.95, 0.55, glow);
+    float rockMask = mix(
+        1.0, smoothstep(rockR * 0.5, rockR * 0.5 + rockFeather, dist), glow
+    );
+
+    float2 flowNormal = float2(-flowDir.y, flowDir.x);
+    float2 texturePx = flowDir * fp.x + flowNormal * fp.y;
+    texturePx.x = mix(res.x * 0.5, texturePx.x, 0.45);
+    float2 rippleCoords = float2(dot(texturePx, flowDir), dot(texturePx, flowNormal));
+
+    detail = vmCaustic(rippleCoords, cellSpacing * 8.0, t);
+    if (audioLevel > 0.001) {
+        float2 speechPx = texturePx;
+        speechPx.y = mix(res.y, speechPx.y, 1.6);
+        float2 speechCoords = float2(dot(speechPx, flowDir), dot(speechPx, flowNormal));
+        float speechDetail = vmCaustic(speechCoords, cellSpacing * 8.0, t);
+        detail = max(detail, speechDetail * (0.65 * audioLevel));
+    }
+    detail *= mix(1.0, 0.8, cancelMix);
+    float detailMix = 0.65;
+    detail *= presence * rockMask;
+    float strongVoice = smoothstep(0.40, 1.0, audioLevel);
+    detail *= 1.0 + 0.40 * audioLevel + 0.25 * strongVoice;
+
+    float detailAlpha = mix(
+        0.50, 0.34 + 0.04 * audioLevel * (1.0 - cancelMix), darkAppearance
+    );
+    float maxBaseAlpha = mix(0.88, 0.76, darkAppearance);
+    float baseAlpha = min(wash * 0.42 + detail * detailAlpha, maxBaseAlpha);
+    float alpha = mix(baseAlpha, mix(0.82, 1.0, darkAppearance), clamp(halo, 0.0, 1.0)) * intensity;
+    alpha *= mix(0.78, 1.0, darkAppearance);
+    alpha *= mix(1.0, cancelAlphaScale, cancelMix);
+
+    float3 detailRGB = mix(
+        float3(0.188, 0.439, 0.820),
+        float3(0.792, 0.306, 0.306),
+        cancelMix
+    );
+    detailRGB = mix(detailRGB, float3(1.0), 0.08);
+    float3 color = mix(
+        focusRGB, detailRGB, clamp(detail * detailMix, 0.0, 0.70) * darkAppearance
+    );
+
+    return half4(color * alpha, alpha);
+}

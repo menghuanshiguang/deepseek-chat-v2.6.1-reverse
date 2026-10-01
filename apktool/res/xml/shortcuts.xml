@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut android:icon="@drawable/ic_shortcut_new_chat" android:enabled="true" android:shortcutId="new_chat" android:shortcutShortLabel="@string/control_title_new_chat" android:shortcutLongLabel="@string/control_title_new_chat">
+        <intent android:action="com.deepseek.chat.action.NEW_CHAT">
+            <extra android:name="com.deepseek.chat.extra.LAUNCH_ORIGIN" android:value="shortcut" />
+        </intent>
+    </shortcut>
+    <shortcut android:icon="@drawable/ic_shortcut_camera" android:enabled="true" android:shortcutId="camera_ask" android:shortcutShortLabel="@string/control_title_open_camera" android:shortcutLongLabel="@string/control_title_open_camera">
+        <intent android:action="com.deepseek.chat.action.CAMERA_ASK">
+            <extra android:name="com.deepseek.chat.extra.LAUNCH_ORIGIN" android:value="shortcut" />
+        </intent>
+    </shortcut>
+    <shortcut android:icon="@drawable/ic_shortcut_send_photo" android:enabled="true" android:shortcutId="send_photo" android:shortcutShortLabel="@string/control_title_send_photo" android:shortcutLongLabel="@string/control_title_send_photo">
+        <intent android:action="com.deepseek.chat.action.PICTURE_ASK">
+            <extra android:name="com.deepseek.chat.extra.LAUNCH_ORIGIN" android:value="shortcut" />
+        </intent>
+    </shortcut>
+</shortcuts>

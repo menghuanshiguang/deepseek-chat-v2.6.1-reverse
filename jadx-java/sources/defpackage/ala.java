@@ -1,0 +1,16 @@
+package defpackage;
+
+/* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+/* loaded from: classes.dex */
+public final class ala implements gn9 {
+    public final /* synthetic */ ag a;
+
+    public ala(ag agVar) {
+        this.a = agVar;
+    }
+
+    @Override // defpackage.gn9
+    public final wv7 a(long j, wa6 wa6Var, pq3 pq3Var) {
+        return new tv7(this.a);
+    }
+}

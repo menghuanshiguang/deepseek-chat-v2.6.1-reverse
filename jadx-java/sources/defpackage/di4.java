@@ -1,0 +1,11 @@
+package defpackage;
+
+/* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+/* loaded from: classes3.dex */
+public abstract /* synthetic */ class di4 {
+    public static final /* synthetic */ int a = 0;
+
+    static {
+        el7.I(16L, 1L, "kotlinx.coroutines.flow.defaultConcurrency", 2147483647L);
+    }
+}

@@ -1,0 +1,37 @@
+# 反编译源码全部按文本处理，避免误判为二进制
+*.smali   text eol=lf
+*.java    text eol=lf
+*.xml     text eol=lf
+*.json    text eol=lf
+*.md      text eol=lf
+*.sh      text eol=lf
+*.yml     text eol=lf
+
+# 二进制
+*.apk     binary
+*.so      binary
+*.dex     binary
+*.jar     binary
+*.keystore binary
+*.ttf     binary
+*.otf     binary
+*.png     binary
+*.webp    binary
+*.jpg     binary
+
+# 这些目录体量巨大且对 review 无意义，禁止 diff 展开
+apktool/smali/**        -diff
+apktool/smali_classes2/** -diff
+apktool/smali_classes3/** -diff
+jadx-java/**            -diff
+lib/**                  -diff
+apktool/lib/**          -diff
+original/*.apk          -diff
+
+# 语言统计：不把反编译产物算进仓库主语言
+apktool/smali/**          linguist-generated=true
+apktool/smali_classes2/** linguist-generated=true
+apktool/smali_classes3/** linguist-generated=true
+jadx-java/**              linguist-generated=true
+apktool/res/**            linguist-generated=true
+apktool/assets/**         linguist-generated=true

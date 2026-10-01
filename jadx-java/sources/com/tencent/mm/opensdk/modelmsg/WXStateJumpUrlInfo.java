@@ -1,0 +1,46 @@
+package com.tencent.mm.opensdk.modelmsg;
+
+import android.os.Bundle;
+import cn.fly.verify.BuildConfig;
+import com.tencent.mm.opensdk.modelmsg.WXStateSceneDataObject;
+import com.tencent.mm.opensdk.utils.Log;
+
+/* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+/* loaded from: classes3.dex */
+public class WXStateJumpUrlInfo implements WXStateSceneDataObject.IWXStateJumpInfo {
+    private static final int LENGTH_LIMIT = 10240;
+    private static final String TAG = "MicroMsg.SDK.WXStateJumpUrlInfo";
+    public String jumpUrl;
+
+    @Override // com.tencent.mm.opensdk.modelmsg.WXStateSceneDataObject.IWXStateJumpInfo
+    public boolean checkArgs() {
+        String str;
+        String str2 = this.jumpUrl;
+        if (str2 != null && str2.length() > 0) {
+            if (this.jumpUrl.length() >= LENGTH_LIMIT) {
+                str = "checkArgs fail, jumpUrl is invalid";
+            } else {
+                return true;
+            }
+        } else {
+            str = "checkArgs fail, jumpUrl is null";
+        }
+        Log.e(TAG, str);
+        return false;
+    }
+
+    @Override // com.tencent.mm.opensdk.modelmsg.WXStateSceneDataObject.IWXStateJumpInfo
+    public void serialize(Bundle bundle) {
+        bundle.putString("wx_state_jump_url", this.jumpUrl);
+    }
+
+    @Override // com.tencent.mm.opensdk.modelmsg.WXStateSceneDataObject.IWXStateJumpInfo
+    public int type() {
+        return 1;
+    }
+
+    @Override // com.tencent.mm.opensdk.modelmsg.WXStateSceneDataObject.IWXStateJumpInfo
+    public void unserialize(Bundle bundle) {
+        this.jumpUrl = bundle.getString("wx_state_jump_url", BuildConfig.FLAVOR);
+    }
+}

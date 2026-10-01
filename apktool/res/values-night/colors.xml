@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="call_notification_control_background">#1fffffff</color>
+    <color name="call_notification_control_foreground">#fff2f2f2</color>
+    <color name="call_notification_control_ripple">#33ffffff</color>
+    <color name="call_notification_hangup_foreground">#fff25a5a</color>
+    <color name="call_notification_label_primary">#fff8f8f8</color>
+    <color name="primary">#ff507bf2</color>
+    <color name="splashscreenBackground">#ff0f0f0f</color>
+</resources>

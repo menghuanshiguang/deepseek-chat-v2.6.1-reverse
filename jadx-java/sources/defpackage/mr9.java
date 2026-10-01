@@ -1,0 +1,8 @@
+package defpackage;
+
+/* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+/* loaded from: classes3.dex */
+public final class mr9 {
+    public static final ai0 a = new ai0(21);
+    public static final zz b = new zz(22);
+}

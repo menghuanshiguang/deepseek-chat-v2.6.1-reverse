@@ -1,0 +1,100 @@
+package com.tencent.liteav.base.util;
+
+import com.tencent.liteav.base.annotations.JNINamespace;
+import defpackage.wa1;
+
+/* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+@JNINamespace("liteav")
+/* loaded from: classes.dex */
+public class Size {
+    public int height;
+    public int width;
+
+    public Size(Size size) {
+        this.width = 0;
+        this.height = 0;
+        set(size);
+    }
+
+    public double aspectRatio() {
+        return (this.width * 1.0d) / this.height;
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Size)) {
+            return false;
+        }
+        Size size = (Size) obj;
+        if (size.width == this.width && size.height == this.height) {
+            return true;
+        }
+        return false;
+    }
+
+    public int getArea() {
+        if (!isValid()) {
+            return 0;
+        }
+        return this.width * this.height;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int hashCode() {
+        return (this.width * 32713) + this.height;
+    }
+
+    public boolean isValid() {
+        if (this.width > 0 && this.height > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public void set(Size size) {
+        if (size != null) {
+            this.width = size.width;
+            this.height = size.height;
+        } else {
+            this.width = 0;
+            this.height = 0;
+        }
+    }
+
+    public void swap() {
+        int i = this.width;
+        this.width = this.height;
+        this.height = i;
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Size(");
+        sb.append(this.width);
+        sb.append(", ");
+        return wa1.w(sb, this.height, ")");
+    }
+
+    public Size(int i, int i2) {
+        this.width = i;
+        this.height = i2;
+    }
+
+    public Size() {
+        this.width = 0;
+        this.height = 0;
+    }
+
+    public void set(int i, int i2) {
+        this.width = i;
+        this.height = i2;
+    }
+}

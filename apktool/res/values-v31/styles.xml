@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.DeepSeek" parent="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/splashscreenBackground</item>
+        <item name="android:selectableItemBackground">@color/primary</item>
+        <item name="android:colorControlActivated">@color/primary</item>
+        <item name="android:colorControlHighlight">@color/primary</item>
+        <item name="android:windowSplashScreenBackground">@color/splashscreenBackground</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@color/colorTransparent</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="colorPrimary">@color/primary</item>
+    </style>
+</resources>

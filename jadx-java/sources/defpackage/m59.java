@@ -1,0 +1,108 @@
+package defpackage;
+
+import com.tencent.liteav.TXLiteAVCode;
+import java.util.HashMap;
+
+/* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+/* loaded from: classes.dex */
+public abstract class m59 {
+    public static final HashMap a;
+
+    static {
+        HashMap hashMap = new HashMap(47);
+        a = hashMap;
+        bv6.A(-984833, hashMap, "aliceblue", -332841, "antiquewhite");
+        hashMap.put("aqua", -16711681);
+        hashMap.put("aquamarine", -8388652);
+        bv6.A(-983041, hashMap, "azure", -657956, "beige");
+        bv6.A(-6972, hashMap, "bisque", -16777216, "black");
+        bv6.A(-5171, hashMap, "blanchedalmond", -16776961, "blue");
+        bv6.A(-7722014, hashMap, "blueviolet", -5952982, "brown");
+        bv6.A(-2180985, hashMap, "burlywood", -10510688, "cadetblue");
+        bv6.A(-8388864, hashMap, "chartreuse", -2987746, "chocolate");
+        bv6.A(-32944, hashMap, "coral", -10185235, "cornflowerblue");
+        bv6.A(-1828, hashMap, "cornsilk", -2354116, "crimson");
+        hashMap.put("cyan", -16711681);
+        hashMap.put("darkblue", -16777077);
+        bv6.A(-16741493, hashMap, "darkcyan", -4684277, "darkgoldenrod");
+        hashMap.put("darkgray", -5658199);
+        hashMap.put("darkgreen", -16751616);
+        hashMap.put("darkgrey", -5658199);
+        hashMap.put("darkkhaki", -4343957);
+        bv6.A(-7667573, hashMap, "darkmagenta", -11179217, "darkolivegreen");
+        bv6.A(-29696, hashMap, "darkorange", -6737204, "darkorchid");
+        bv6.A(-7667712, hashMap, "darkred", -1468806, "darksalmon");
+        bv6.A(-7357297, hashMap, "darkseagreen", -12042869, "darkslateblue");
+        hashMap.put("darkslategray", -13676721);
+        hashMap.put("darkslategrey", -13676721);
+        hashMap.put("darkturquoise", -16724271);
+        hashMap.put("darkviolet", -7077677);
+        bv6.A(-60269, hashMap, "deeppink", -16728065, "deepskyblue");
+        hashMap.put("dimgray", -9868951);
+        hashMap.put("dimgrey", -9868951);
+        hashMap.put("dodgerblue", -14774017);
+        hashMap.put("firebrick", -5103070);
+        bv6.A(-1296, hashMap, "floralwhite", -14513374, "forestgreen");
+        hashMap.put("fuchsia", -65281);
+        hashMap.put("gainsboro", -2302756);
+        bv6.A(-460545, hashMap, "ghostwhite", -10496, "gold");
+        hashMap.put("goldenrod", -2448096);
+        hashMap.put("gray", -8355712);
+        bv6.A(-16744448, hashMap, "green", -5374161, "greenyellow");
+        hashMap.put("grey", -8355712);
+        hashMap.put("honeydew", -983056);
+        bv6.A(-38476, hashMap, "hotpink", -3318692, "indianred");
+        bv6.A(-11861886, hashMap, "indigo", -16, "ivory");
+        bv6.A(-989556, hashMap, "khaki", -1644806, "lavender");
+        bv6.A(-3851, hashMap, "lavenderblush", -8586240, "lawngreen");
+        bv6.A(TXLiteAVCode.ERR_AUDIO_PLUGIN_INSTALL_NOT_AUTHORIZED, hashMap, "lemonchiffon", -5383962, "lightblue");
+        bv6.A(-1015680, hashMap, "lightcoral", -2031617, "lightcyan");
+        hashMap.put("lightgoldenrodyellow", -329006);
+        hashMap.put("lightgray", -2894893);
+        hashMap.put("lightgreen", -7278960);
+        hashMap.put("lightgrey", -2894893);
+        bv6.A(-18751, hashMap, "lightpink", -24454, "lightsalmon");
+        bv6.A(-14634326, hashMap, "lightseagreen", -7876870, "lightskyblue");
+        hashMap.put("lightslategray", -8943463);
+        hashMap.put("lightslategrey", -8943463);
+        hashMap.put("lightsteelblue", -5192482);
+        hashMap.put("lightyellow", -32);
+        bv6.A(-16711936, hashMap, "lime", -13447886, "limegreen");
+        hashMap.put("linen", -331546);
+        hashMap.put("magenta", -65281);
+        bv6.A(-8388608, hashMap, "maroon", -10039894, "mediumaquamarine");
+        bv6.A(-16777011, hashMap, "mediumblue", -4565549, "mediumorchid");
+        bv6.A(-7114533, hashMap, "mediumpurple", -12799119, "mediumseagreen");
+        bv6.A(-8689426, hashMap, "mediumslateblue", -16713062, "mediumspringgreen");
+        bv6.A(-12004916, hashMap, "mediumturquoise", -3730043, "mediumvioletred");
+        bv6.A(-15132304, hashMap, "midnightblue", -655366, "mintcream");
+        bv6.A(-6943, hashMap, "mistyrose", -6987, "moccasin");
+        bv6.A(-8531, hashMap, "navajowhite", -16777088, "navy");
+        bv6.A(-133658, hashMap, "oldlace", -8355840, "olive");
+        bv6.A(-9728477, hashMap, "olivedrab", -23296, "orange");
+        bv6.A(-47872, hashMap, "orangered", -2461482, "orchid");
+        bv6.A(-1120086, hashMap, "palegoldenrod", -6751336, "palegreen");
+        bv6.A(-5247250, hashMap, "paleturquoise", -2396013, "palevioletred");
+        bv6.A(-4139, hashMap, "papayawhip", -9543, "peachpuff");
+        bv6.A(-3308225, hashMap, "peru", -16181, "pink");
+        bv6.A(-2252579, hashMap, "plum", -5185306, "powderblue");
+        bv6.A(-8388480, hashMap, "purple", -10079335, "rebeccapurple");
+        bv6.A(-65536, hashMap, "red", -4419697, "rosybrown");
+        bv6.A(-12490271, hashMap, "royalblue", -7650029, "saddlebrown");
+        bv6.A(-360334, hashMap, "salmon", -744352, "sandybrown");
+        bv6.A(-13726889, hashMap, "seagreen", -2578, "seashell");
+        bv6.A(-6270419, hashMap, "sienna", -4144960, "silver");
+        bv6.A(-7876885, hashMap, "skyblue", -9807155, "slateblue");
+        hashMap.put("slategray", -9404272);
+        hashMap.put("slategrey", -9404272);
+        hashMap.put("snow", -1286);
+        hashMap.put("springgreen", -16711809);
+        bv6.A(-12156236, hashMap, "steelblue", -2968436, "tan");
+        bv6.A(-16744320, hashMap, "teal", -2572328, "thistle");
+        bv6.A(-40121, hashMap, "tomato", -12525360, "turquoise");
+        bv6.A(-1146130, hashMap, "violet", -663885, "wheat");
+        bv6.A(-1, hashMap, "white", -657931, "whitesmoke");
+        bv6.A(-256, hashMap, "yellow", -6632142, "yellowgreen");
+        hashMap.put("transparent", 0);
+    }
+}

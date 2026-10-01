@@ -1,0 +1,106 @@
+.class public abstract synthetic Lqo0;
+.super Ljava/lang/Object;
+.source "r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98"
+
+
+# direct methods
+.method public static synthetic a()Landroid/graphics/RuntimeShader;
+    .locals 2
+
+    .line 1
+    new-instance v0, Landroid/graphics/RuntimeShader;
+
+    .line 2
+    .line 3
+    const-string v1, "uniform float2 resolution;\nuniform float time;\nuniform float fluidTime;\nuniform float listening;\nuniform float connecting;\nuniform float level;\nuniform float ripplePhase;\nuniform float energy;\nuniform float lightTheme;\n\nuniform float3 paletteLight;\nuniform float3 paletteMid;\nuniform float3 paletteDark;\n\nfloat3 mod289(float3 x) { return x - floor(x / 289.0) * 289.0; }\nfloat4 mod289(float4 x) { return x - floor(x / 289.0) * 289.0; }\nfloat4 permute(float4 x) { return mod289(((x * 34.0) + 1.0) * x); }\nfloat4 taylorInvSqrt(float4 r) { return 1.79284291400159 - 0.85373472095314 * r; }\n\nfloat snoise(float3 v) {\n    const float2 C = float2(1.0 / 6.0, 1.0 / 3.0);\n    const float4 D = float4(0.0, 0.5, 1.0, 2.0);\n    float3 i = floor(v + dot(v, C.yyy));\n    float3 x0 = v - i + dot(i, C.xxx);\n    float3 g = step(x0.yzx, x0.xyz);\n    float3 l = 1.0 - g;\n    float3 i1 = min(g, l.zxy);\n    float3 i2 = max(g, l.zxy);\n    float3 x1 = x0 - i1 + C.xxx;\n    float3 x2 = x0 - i2 + C.yyy;\n    float3 x3 = x0 - D.yyy;\n    i = mod289(i);\n    float4 p = permute(permute(permute(\n        i.z + float4(0.0, i1.z, i2.z, 1.0))\n        + i.y + float4(0.0, i1.y, i2.y, 1.0))\n        + i.x + float4(0.0, i1.x, i2.x, 1.0));\n    float3 ns = 0.142857142857 * D.wyz - D.xzx;\n    float4 j = p - 49.0 * floor(p * ns.z * ns.z);\n    float4 x_ = floor(j * ns.z);\n    float4 y_ = floor(j - 7.0 * x_);\n    float4 x = x_ * ns.x + ns.yyyy;\n    float4 y = y_ * ns.x + ns.yyyy;\n    float4 h = 1.0 - abs(x) - abs(y);\n    float4 b0 = float4(x.xy, y.xy);\n    float4 b1 = float4(x.zw, y.zw);\n    float4 s0 = floor(b0) * 2.0 + 1.0;\n    float4 s1 = floor(b1) * 2.0 + 1.0;\n    float4 sh = -step(h, float4(0.0));\n    float4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;\n    float4 a1 = b1.xzyw + s1.xzyw * sh.zzww;\n    float3 p0 = float3(a0.xy, h.x);\n    float3 p1 = float3(a0.zw, h.y);\n    float3 p2 = float3(a1.xy, h.z);\n    float3 p3 = float3(a1.zw, h.w);\n    float4 norm = taylorInvSqrt(float4(\n        dot(p0, p0), dot(p1, p1), dot(p2, p2), dot(p3, p3)));\n    p0 *= norm.x;\n    p1 *= norm.y;\n    p2 *= norm.z;\n    p3 *= norm.w;\n    float4 m = max(0.6 - float4(\n        dot(x0, x0), dot(x1, x1), dot(x2, x2), dot(x3, x3)), 0.0);\n    m *= m;\n    return 42.0 * dot(m * m, float4(\n        dot(p0, x0), dot(p1, x1), dot(p2, x2), dot(p3, x3)));\n}\n\nfloat fluidFbm(float3 p) { return 0.6 * snoise(p); }\n\nfloat fluidNoise(float2 uv, float t) {\n    float n1 = fluidFbm(float3(uv * 0.6, t * 0.06));\n    float n2 = fluidFbm(float3(uv * 0.6 + 5.2, t * 0.06 + 1.3));\n    float2 warp1 = float2(n1, n2) * 0.6;\n    float n3 = fluidFbm(float3((uv + warp1) * 0.7 + 1.7, t * 0.05 + 3.1));\n    float n4 = fluidFbm(float3((uv + warp1) * 0.7 + 9.2, t * 0.05 + 5.7));\n    float2 warp2 = float2(n3, n4) * 0.5;\n    return fluidFbm(float3((uv + warp1 + warp2) * 0.5, t * 0.04));\n}\n\nfloat2 curlish(float2 uv, float t) {\n    float eps = 0.02;\n    float n = snoise(float3(uv * 0.8, t));\n    float nx = snoise(float3((uv + float2(eps, 0.0)) * 0.8, t));\n    float ny = snoise(float3((uv + float2(0.0, eps)) * 0.8, t));\n    return float2(-(ny - n) / eps, (nx - n) / eps) * 0.003;\n}\n\nfloat3 fluidInterior(float2 q) {\n    float t = fluidTime * 3.5;\n    float2 uv = q * 1.05 + 0.5;\n    float2 uvD = uv + curlish(uv, t * 0.04) * (12.0 + 12.0 * energy);\n    float f = fluidNoise(uvD, t);\n    float swirl = snoise(float3(uvD * 0.8 + f * 1.5, t * 0.035)) * 0.5 + 0.5;\n    float n = f * 0.5 + 0.5;\n    float3 base = mix(paletteMid * 0.85, paletteMid * 0.92, lightTheme);\n    float3 flow = paletteDark * 0.95;\n    float3 shadow = mix(paletteDark * 0.45, paletteDark * 0.75, lightTheme);\n    float3 accent = mix(\n        mix(paletteLight, paletteDark, 0.5),\n        mix(paletteLight, paletteMid, 0.5), lightTheme);\n    float3 col = mix(base, flow, smoothstep(0.2, 0.5, n));\n    col = mix(col, paletteLight, smoothstep(0.35, 0.65, n + swirl * 0.25));\n    col = mix(col, shadow, smoothstep(0.6, 0.85, swirl) * 0.55);\n    return mix(col, accent, smoothstep(0.5, 0.8, n * swirl) * 0.35);\n}\n\nfloat orbSdf(float2 q) {\n    float breathe = sin(time * 2.2);\n    float radius = 0.64 * (1.0 + 0.045 * breathe * (1.0 - listening));\n    radius = mix(radius, 0.50, listening);\n    // atan(0, 0) is undefined and can leave a black center pixel at odd sizes.\n    if (dot(q, q) < 0.00000001) return -radius;\n    float angle = atan(q.y, q.x);\n    float wobble = 0.006 * sin(2.0 * angle + time * 0.7)\n        + 0.004 * sin(3.0 * angle - time * 1.1);\n    return length(q) - (1.0 + wobble) * radius;\n}\n\nfloat2 orbNormal(float2 q) {\n    float e = 0.003;\n    float dx = orbSdf(q + float2(e, 0.0)) - orbSdf(q - float2(e, 0.0));\n    float dy = orbSdf(q + float2(0.0, e)) - orbSdf(q - float2(0.0, e));\n    return normalize(float2(dx, dy) + 0.00001);\n}\n\nfloat domeOf(float d) {\n    float depth = clamp(-d / 0.16, 0.0, 1.0);\n    return sqrt(1.0 - (1.0 - depth) * (1.0 - depth));\n}\n\nfloat fresnelOf(float d) { return pow(1.0 - domeOf(d), 3.0); }\n\nfloat bandProfile(float edgeDistance, float width) {\n    float inward = 1.0 - clamp(edgeDistance / width, 0.0, 1.0);\n    return smoothstep(0.0, 0.004, edgeDistance) * inward * inward;\n}\n\nfloat3 glassInterior(float2 q, float d) {\n    float dome = domeOf(d);\n    float3 col = fluidInterior(q) * mix(mix(0.60, 0.78, lightTheme), 1.0, dome);\n    // The page is transparent here. Use a matching ambient tint for the small\n    // reflected edge contribution instead of baking in iOS\'s full-screen backdrop.\n    float3 ambient = mix(paletteMid * 0.25, mix(paletteLight, float3(1.0), 0.7), lightTheme);\n    col = mix(col, ambient, mix(0.10, 0.16, lightTheme) * (1.0 - dome));\n    float3 rim = float3(fresnelOf(d - 0.0035), fresnelOf(d), fresnelOf(d + 0.0035));\n    col += mix(float3(0.55, 0.72, 1.0) * 0.9, float3(0.8), lightTheme) * rim;\n    // Both light bands vanish outside this inner edge strip. Avoid four SDF\n    // evaluations for the normal everywhere else, including the fluid\'s center.\n    if (d > -0.055 && d < 0.0) {\n        float2 normal = orbNormal(q);\n        float2 keyDirection = normalize(float2(-0.55, 0.83));\n        float key = bandProfile(-d, 0.055)\n            * clamp((dot(normal, keyDirection) - 0.1) / 0.9, 0.0, 1.0);\n        float fill = bandProfile(-d, 0.035)\n            * clamp((dot(normal, -keyDirection) - 0.3) / 0.7, 0.0, 1.0);\n        col += float3(1.0, 0.98, 0.95) * key * 0.85\n            + float3(0.7, 0.85, 1.0) * fill * 0.4;\n    }\n    float2 highlight = (q - float2(-0.28, 0.32)) * float2(1.0, 2.0);\n    col += float3(1.0) * exp(-dot(highlight, highlight) * 30.0) * 0.22;\n    return mix(1.0 - exp(-col * 1.35), clamp(col, 0.0, 1.0), lightTheme);\n}\n\nfloat listeningRings(float outsideDistance) {\n    // These states have zero amplitude or fade, regardless of ripple phase.\n    if (listening <= 0.0 || level <= 0.04 || outsideDistance <= 0.0) return 0.0;\n    float amplitude = smoothstep(0.04, 0.35, level) * mix(0.35, 2.0, level);\n    float reach = mix(8.0, 4.5, level);\n    float fade = smoothstep(0.0, 0.02, outsideDistance) * exp(-outsideDistance * reach);\n    float inward = pow(0.5 + 0.5 * sin(outsideDistance * 25.0 + ripplePhase), 12.0);\n    return inward * fade * 0.12 * amplitude * listening;\n}\n\nhalf4 main(float2 coord) {\n    float minDimension = min(resolution.x, resolution.y);\n    float2 q = (coord - resolution * 0.5) * 1.28 / minDimension;\n    q.y = -q.y;\n    // The finite draw area ends at radius 1.088. Fade well before that edge to\n    // avoid rectangular boundaries without clipping the breathing silhouette.\n    float extent = 1.0 - smoothstep(0.92, 1.075, length(q));\n    if (extent <= 0.0) return half4(0.0);\n    float d = orbSdf(q);\n    float aa = 1.92 / minDimension;\n    float mask = 1.0 - smoothstep(-aa, aa, d);\n    float alpha = 1.0;\n    float3 premultiplied = float3(0.0);\n    // Opaque interior pixels completely cover the halo and listening rings.\n    if (mask < 1.0) {\n        float outsideDistance = max(d, 0.0);\n        float glow = exp(-outsideDistance * 6.0)\n            * (0.10 + 0.16 * listening * level + 0.04 * connecting);\n        // The enlarged idle/muted orb leaves less room for the halo. Start its\n        // fade earlier so it merges into the scene light without a bright band.\n        float glowExtent = 1.0 - smoothstep(mix(0.64, 0.92, listening), 1.075, length(q));\n        float glowAlpha = clamp(glow * mix(3.0, 2.2, lightTheme), 0.0, 1.0) * glowExtent;\n        float ringAlpha = clamp(listeningRings(outsideDistance) * mix(1.0, 1.2, lightTheme), 0.0, 1.0) * extent;\n        float3 glowColor = mix(paletteMid, mix(paletteMid, float3(1.0), 0.2), lightTheme);\n        float3 ringColor = mix(paletteMid, mix(paletteMid, paletteDark, 0.5), lightTheme);\n        alpha = ringAlpha + glowAlpha * (1.0 - ringAlpha);\n        premultiplied = ringColor * ringAlpha + glowColor * glowAlpha * (1.0 - ringAlpha);\n    }\n    if (mask > 0.0) {\n        premultiplied = mix(premultiplied, glassInterior(q, d), mask);\n        alpha = mix(alpha, 1.0, mask);\n    }\n    return half4(half3(premultiplied), half(alpha));\n}"
+
+    .line 4
+    .line 5
+    invoke-direct {v0, v1}, Landroid/graphics/RuntimeShader;-><init>(Ljava/lang/String;)V
+
+    .line 6
+    .line 7
+    .line 8
+    return-object v0
+.end method
+
+.method public static synthetic b(Ljava/lang/String;)Landroid/graphics/RuntimeShader;
+    .locals 1
+
+    .line 1
+    new-instance v0, Landroid/graphics/RuntimeShader;
+
+    .line 2
+    .line 3
+    invoke-direct {v0, p0}, Landroid/graphics/RuntimeShader;-><init>(Ljava/lang/String;)V
+
+    .line 4
+    .line 5
+    .line 6
+    return-object v0
+.end method
+
+.method public static synthetic c(Ljava/lang/CharSequence;Landroid/text/TextPaint;ILandroid/text/Layout$Alignment;Landroid/text/BoringLayout$Metrics;ZLandroid/text/TextUtils$TruncateAt;I)Landroid/text/BoringLayout;
+    .locals 12
+
+    .line 1
+    new-instance v0, Landroid/text/BoringLayout;
+
+    .line 2
+    .line 3
+    const/high16 v5, 0x3f800000    # 1.0f
+
+    .line 4
+    .line 5
+    const/4 v6, 0x0
+
+    .line 6
+    const/4 v11, 0x1
+
+    .line 7
+    move-object v1, p0
+
+    .line 8
+    move-object v2, p1
+
+    .line 9
+    move v3, p2
+
+    .line 10
+    move-object v4, p3
+
+    .line 11
+    move-object/from16 v7, p4
+
+    .line 12
+    .line 13
+    move/from16 v8, p5
+
+    .line 14
+    .line 15
+    move-object/from16 v9, p6
+
+    .line 16
+    .line 17
+    move/from16 v10, p7
+
+    .line 18
+    .line 19
+    invoke-direct/range {v0 .. v11}, Landroid/text/BoringLayout;-><init>(Ljava/lang/CharSequence;Landroid/text/TextPaint;ILandroid/text/Layout$Alignment;FFLandroid/text/BoringLayout$Metrics;ZLandroid/text/TextUtils$TruncateAt;IZ)V
+
+    .line 20
+    .line 21
+    .line 22
+    return-object v0
+.end method
+
+.method public static synthetic d()V
+    .locals 1
+
+    .line 1
+    new-instance v0, Landroid/graphics/RuntimeShader;
+
+    .line 2
+    .line 3
+    return-void
+.end method

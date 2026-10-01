@@ -1,0 +1,36 @@
+package defpackage;
+
+import java.io.File;
+
+/* compiled from: r8-map-id-7ff9306186985100d1d7914faebd9df19f297a91b56703aad83d9837746fff98 */
+/* loaded from: classes3.dex */
+public final class ae4 extends zd4 {
+    public boolean b;
+    public File[] c;
+    public int d;
+    public boolean e;
+
+    @Override // defpackage.ee4
+    public final File a() {
+        int i;
+        boolean z = this.e;
+        File file = this.a;
+        if (!z && this.c == null) {
+            File[] listFiles = file.listFiles();
+            this.c = listFiles;
+            if (listFiles == null) {
+                this.e = true;
+            }
+        }
+        File[] fileArr = this.c;
+        if (fileArr != null && (i = this.d) < fileArr.length) {
+            this.d = i + 1;
+            return fileArr[i];
+        }
+        if (!this.b) {
+            this.b = true;
+            return file;
+        }
+        return null;
+    }
+}
