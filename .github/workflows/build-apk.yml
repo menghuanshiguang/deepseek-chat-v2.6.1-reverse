@@ -1,6 +1,6 @@
 name: Build APK from decompiled source
 
-# 在干净的 x86_64 runner 上原生构建（aapt2 可直接运行，无需交叉/模拟）
+# 在干净的 x86_64 runner 上原生构建（aapt2 可直接运行，无需交叉编译或模拟）
 on:
   push:
     branches: [ main, master ]
@@ -18,7 +18,7 @@ env:
 
 jobs:
   build:
-    name: apktool b + zipalign + apksigner
+    name: apktool b + zipalign + apksigner + verify
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -51,10 +51,6 @@ jobs:
             "https://github.com/iBotPeaches/Apktool/releases/download/v${APKTOOL_VERSION}/apktool_${APKTOOL_VERSION}.jar"
           java -jar apktool.jar --version
 
-      - name: Show apktool version
-        if: steps.apktool-cache.outputs.cache-hit == 'true'
-        run: java -jar apktool.jar --version
-
       - name: Create signing keystore
         run: bash scripts/make-keystore.sh
 
@@ -64,10 +60,9 @@ jobs:
       - name: Sign (zipalign + apksigner)
         run: bash scripts/sign.sh "$OUT_APK" "$SIGNED_APK"
 
-      - name: Verify against original APK
-        id: verify
-        continue-on-error: true
-        run: bash scripts/verify.sh 2>&1 | tee verify/VERIFY-LOG.txt
+      # 严格判定：任何语义漂移都会让整个 workflow 变红
+      - name: Verify equivalence vs original APK
+        run: bash scripts/verify.sh
 
       - name: Build summary
         if: always()
@@ -81,16 +76,13 @@ jobs:
               echo "| 重建 APK | \`$(stat -c %s "$SIGNED_APK")\` 字节 |"
               echo "| 重建 APK MD5 | \`$(md5sum "$SIGNED_APK" | cut -d' ' -f1)\` |"
             else
-              echo "| 重建 APK | ❌ 未生成 |"
+              echo "| 重建 APK | 未生成 |"
             fi
             echo "| 原始 APK | \`$(stat -c %s original/deepseek-chat-v2.6.1-base.apk 2>/dev/null || echo n/a)\` 字节 |"
-            echo "| 差分验证 | ${{ steps.verify.outcome == 'success' && '✅ 通过' || '⚠️ 见 VERIFY-LOG.txt' }} |"
             echo ""
-            echo "### 重建 APK 指纹"
+            echo "### 验证结论"
             echo '```'
-            if [ -f "$SIGNED_APK" ]; then
-              $ANDROID_HOME/build-tools/34.0.0/aapt2 dump badging "$SIGNED_APK" 2>/dev/null | head -5
-            fi
+            cat verify/VERIFY-SUMMARY.txt 2>/dev/null || echo "(无)"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -105,29 +97,37 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
 
-  verify-only:
-    name: 差分验证（独立作业）
+  reproduce:
+    name: 独立复现（重新下载源码 + 产物再验一遍）
     runs-on: ubuntu-latest
     timeout-minutes: 60
     needs: build
     if: always()
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
+
       - uses: android-actions/setup-android@v3
         with:
           packages: "platforms;android-35 build-tools;34.0.0"
+
       - name: Download apktool
         run: |
           curl -fsSL -o apktool.jar \
             "https://github.com/iBotPeaches/Apktool/releases/download/v${APKTOOL_VERSION}/apktool_${APKTOOL_VERSION}.jar"
-      - name: Download rebuilt artifact
+
+      - name: Download built artifact
         uses: actions/download-artifact@v4
         with:
           name: deepseek-chat-2.6.1-rebuilt
-          path: build/
-      - name: Verify dex round-trip
+          path: .
+
+      - name: Show what we got
+        run: find build verify -type f -printf '%s\t%p\n' 2>/dev/null || true
+
+      - name: Verify equivalence again (independent run)
         run: bash scripts/verify.sh

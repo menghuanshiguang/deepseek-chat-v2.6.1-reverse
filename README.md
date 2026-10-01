@@ -110,9 +110,18 @@ bash scripts/sign.sh build/deepseek-chat-2.6.1-unsigned.apk build/deepseek-chat-
 
 | 层 | 方法 | 判定 |
 |---|---|---|
-| **L1 代码** | 从重建 APK 抽出 `classes*.dex` → baksmali → 与提交的 `apktool/smali*` 逐文件 diff | 必须 0 差异 |
-| **L2 资源** | 重建 APK 的 `res/` + `resources.arsc` 用 apktool 重新解码 → 与提交的 `res/` 逐文件 diff | 必须 0 差异 |
-| **L3 清单/入口** | `aapt2 dump badging` 对比包名、版本、权限、四大组件、launchable-activity | 必须逐字段一致 |
+| **L1 代码** | 重建 dex → baksmali → 与源码 smali 逐行**差异分类** | 每一处差异都必须归因为「静态字段默认初值被汇编器省略」，否则 FAIL |
+| **L1b 资源 ID** ★ | 代码里硬编码的**每一个资源 ID**，在重建资源表里是否仍解析到**同一个资源** | 0 处漂移，否则 FAIL |
+| **L2 资源** | 重建 APK 重新解码的 `res/` 与源码 `res/` 逐文件 diff | 除 `attrs.xml`（flag 顺序）/`public.xml`（ID 分配，影响已由 L1b 覆盖）外必须逐字节一致 |
+| **L3 清单/入口** | `aapt2 dump badging`（归一化 apktool 的资源文件改名后）逐行 diff | 0 差异 |
+
+> **实测结果见 [`docs/VERIFICATION-RESULTS.md`](docs/VERIFICATION-RESULTS.md)** ——
+> 当前状态：**PASS**。15,484 个类中 45 个只有无害文本差异（0 处语义漂移）、
+> 640 个被代码引用的资源 ID **0 处解析变化**、851 个资源文件中 849 个逐字节一致。
+
+> **L1b 是"UI 一致"的硬保证**：R8 会把 `R.*` 常量内联成字面量写进 smali，
+> 因此代码里硬编码了 640 个资源 ID。只要每个 ID 仍指向同一资源，
+> 应用取到的 drawable/string/layout/color 就与官方包完全相同。
 
 > 真机 UI 验证（把重建 APK 装进 **Android 副用户**，与原版截图逐像素比对）见
 > [`docs/VERIFICATION.md`](docs/VERIFICATION.md) —— 这一步在本地设备完成，CI 无法覆盖。
